@@ -1,10 +1,25 @@
 use clap::App;
+use clap::Arg;
 
 fn main() {
-    //println!("{:#?}", std::env::args());
-    let _matches = App::new("echo_rust")
+    let matches = App::new("echo_rust")
         .version("0.1.0")
         .author("master-of-none <shrikrishna.bht@gmail.com>")
         .about("Rust echo comand")
+        .arg(
+            Arg::with_name("text")
+                .value_name("TEXT")
+                .help("Input text")
+                .required(true)
+                .min_values(1),
+        )
+        .arg(
+            Arg::with_name("omit_newline")
+                .help("Dont print new line")
+                .takes_value(false)
+                .short("n"),
+        )
         .get_matches();
+
+    println!("{:#?}", matches);
 }
