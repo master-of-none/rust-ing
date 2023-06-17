@@ -1,4 +1,4 @@
-### echo command implementation in Rust
+# echo command implementation in Rust
 ## Shrikrishna Bhat
 
 ## Instructions
