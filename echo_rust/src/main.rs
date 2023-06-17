@@ -1,3 +1,8 @@
+/*
+This code is the old code
+Must change the code after writing the complete echo program
+*/
+
 use clap::App;
 use clap::Arg;
 
