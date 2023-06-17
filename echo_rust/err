@@ -1,0 +1,2 @@
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `target/debug/echo_rust Hello World`

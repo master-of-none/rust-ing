@@ -1,0 +1,19 @@
+ArgMatches {
+    args: {
+        "text": MatchedArg {
+            occurs: 2,
+            indices: [
+                1,
+                2,
+            ],
+            vals: [
+                "Hello",
+                "World",
+            ],
+        },
+    },
+    subcommand: None,
+    usage: Some(
+        "USAGE:\n    echo_rust [FLAGS] <TEXT>...",
+    ),
+}
