@@ -26,5 +26,7 @@ fn main() {
         )
         .get_matches();
 
-    println!("{:#?}", matches);
+    let text = matches.values_of_lossy("text").unwrap();
+    println!("{}", text.join(" "));
+    //println!("{:#?}", matches);
 }
