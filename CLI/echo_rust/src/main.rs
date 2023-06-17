@@ -5,6 +5,8 @@ Must change the code after writing the complete echo program
 
 //! Check the STDOUT and STDERR using the below command  
 //! cargo run -- Hello World 1>out 2>err
+//! Uncomment the Cargo.toml file before running the program
+
 use clap::App;
 use clap::Arg;
 
