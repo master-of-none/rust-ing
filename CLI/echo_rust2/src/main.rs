@@ -15,13 +15,13 @@ fn main() {
     }
 
     if values[0] == "-n" {
-        for i in 1..values.len() - 1 {
-            print!("{} ", values[i]);
+        for item in values.iter().take(values.len() - 1).skip(1) {
+            print!("{} ", item);
         }
         print!("{}", values[values.len() - 1]);
     } else if values[values.len() - 1] == "-n" {
-        for i in 0..values.len() - 2 {
-            print!("{} ", values[i]);
+        for item in values.iter().take(values.len() - 2) {
+            print!("{} ", item);
         }
         print!("{}", values[values.len() - 2]);
     }
