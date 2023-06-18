@@ -10,7 +10,8 @@ fn does_not_work() {
 }
 
 #[test]
-fn works_correctly() {
+fn hello1() {
+    let expected = "Hello there \n";
     let mut cmd = Command::cargo_bin("echo_rust2").unwrap();
-    cmd.arg("hello").assert().success();
+    cmd.arg("Hello there").assert().success().stdout(expected);
 }
