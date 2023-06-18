@@ -9,7 +9,7 @@ fn main() {
         values.push(String::from_str(&arg).expect("Error in parsing"));
     }
 
-    if values.len() < 1 {
+    if values.is_empty() {
         println!("Usage: cargo run <enter text>");
         exit(1);
     }
