@@ -4,7 +4,12 @@ use std::error::Error;
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
 pub fn run(config: Config) -> MyResult<()> {
-    dbg!(config);
+    // dbg!(config);
+    // Ok(())
+
+    for filename in config.files {
+        println!("{}", filename);
+    }
     Ok(())
 }
 
