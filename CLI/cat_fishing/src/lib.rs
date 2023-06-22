@@ -13,7 +13,13 @@ pub fn run(config: Config) -> MyResult<()> {
         // println!("{}", filename);
         match open(&filename) {
             Err(err) => eprintln!("Failed to open the file: {} - {}", filename, err),
-            Ok(_) => println!("Opened {}", filename),
+            // Ok(_) => println!("Opened {}", filename),
+            Ok(file) => {
+                for lines in file.lines() {
+                    let line = lines?;
+                    println!("{}", line);
+                }
+            }
         }
     }
     Ok(())
