@@ -8,14 +8,20 @@ type MyResult<T> = Result<T, Box<dyn Error>>;
 pub fn run(config: Config) -> MyResult<()> {
     for filename in config.files {
         match open(&filename) {
-            Err(err) => eprintln!("Failed to open the file: {} - {}", filename, err),
+            Err(err) => eprintln!("{}: {}", filename, err),
             Ok(file) => {
-                // let mut line_number = 0;
-                // for lines in file.lines() {
-                for (line_number, lines) in file.lines().enumerate() {
-                    let line = lines?;
+                let mut last_num = 0;
+                for (line_num, line) in file.lines().enumerate() {
+                    let line = line?;
                     if config.number_lines {
-                        println!("{:>6}\t{}", line_number + 1, line);
+                        println!("{:>6}\t{}", line_num + 1, line);
+                    } else if config.number_nonblank_lines {
+                        if !line.is_empty() {
+                            last_num += 1;
+                            println!("{:>6}\t{}", last_num, line);
+                        } else {
+                            println!();
+                        }
                     } else {
                         println!("{}", line);
                     }
