@@ -6,22 +6,16 @@ use std::io::{self, BufRead, BufReader};
 type MyResult<T> = Result<T, Box<dyn Error>>;
 
 pub fn run(config: Config) -> MyResult<()> {
-    // dbg!(config);
-    // Ok(())
-
     for filename in config.files {
-        // println!("{}", filename);
         match open(&filename) {
             Err(err) => eprintln!("Failed to open the file: {} - {}", filename, err),
-            // Ok(_) => println!("Opened {}", filename),
             Ok(file) => {
-                let mut line_number = 0;
-                for lines in file.lines() {
+                // let mut line_number = 0;
+                // for lines in file.lines() {
+                for (line_number, lines) in file.lines().enumerate() {
                     let line = lines?;
-                    line_number += 1;
-
                     if config.number_lines {
-                        println!("{:>6}\t{}", line_number, line);
+                        println!("{:>6}\t{}", line_number + 1, line);
                     } else {
                         println!("{}", line);
                     }
