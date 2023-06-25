@@ -19,7 +19,12 @@ impl Question {
 }
 
 fn main() {
-    let question = Question::new("1", "First question", "Content of the question", ["faq"]);
+    let question = Question::new(
+        QuestionId("1".to_string()),
+        "First question".to_string(),
+        "Content of the question".to_string(),
+        ["faq"],
+    );
 
     println!("{}", question);
 }
