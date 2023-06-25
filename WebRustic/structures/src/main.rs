@@ -23,7 +23,7 @@ fn main() {
         QuestionId("1".to_string()),
         "First question".to_string(),
         "Content of the question".to_string(),
-        ["faq"],
+        Some(vec!["faq".to_string()]),
     );
 
     println!("{}", question);
