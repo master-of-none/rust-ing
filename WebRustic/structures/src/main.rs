@@ -1,3 +1,4 @@
+#[derive(Debug)]
 struct Question {
     id: QuestionId,
     title: String,
@@ -5,6 +6,7 @@ struct Question {
     tags: Option<Vec<String>>,
 }
 
+#[derive(Debug)]
 struct QuestionId(String);
 
 impl Question {
@@ -26,5 +28,5 @@ fn main() {
         Some(vec!["faq".to_string()]),
     );
 
-    println!("{}", question);
+    println!("{:#?}", question);
 }
