@@ -12,7 +12,10 @@ async fn main() {
 
     // warp::serve(hello).run(([127, 0, 0, 1], 1337)).await;
 
-    let hello = warp::get().map(|| format!("Hello World"));
+    // let hello = warp::get().map(|| format!("Hello World"));
+
+    //! The below code create hellow world route
+    let hello = warp::path("hello").map(|| format!("Hello World Route"));
 
     warp::serve(hello).run(([127, 0, 0, 1], 3030)).await;
 }
