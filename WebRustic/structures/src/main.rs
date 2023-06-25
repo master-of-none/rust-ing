@@ -19,5 +19,7 @@ impl Question {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let question = Question::new("1", "First question", "Content of the question", ["faq"]);
+
+    println!("{}", question);
 }
