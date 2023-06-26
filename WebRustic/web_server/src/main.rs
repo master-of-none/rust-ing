@@ -1,9 +1,10 @@
 use std::io::{Error, ErrorKind};
 use std::str::FromStr;
 
+use serde::Serialize;
 use warp::Filter;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct Question {
     id: QuestionId,
     title: String,
@@ -11,7 +12,7 @@ struct Question {
     tags: Option<Vec<String>>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct QuestionId(String);
 
 impl Question {
@@ -64,6 +65,6 @@ async fn main() {
         .and(warp::path::end())
         .and_then(get_questions);
 
-    let routes = get_items;
+    let routes = hello.or(get_items);
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 }
