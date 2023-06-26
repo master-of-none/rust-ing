@@ -11,6 +11,9 @@ enum Cereal {
 fn main() {
     let mut grains: Vec<Cereal> = vec![];
     grains.push(Cereal::Rye);
-    drop(grains);
     println!("{:?}", grains);
+    drop(grains);
+
+    // The below code will give dangling pointer error
+    //println!("{:?}", grains);
 }
