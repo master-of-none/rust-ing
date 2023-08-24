@@ -34,14 +34,16 @@ impl List {
     }
 
     pub fn pop(&mut self) -> Option<i32> {
+        let result;
         match &self.head {
             Link::Empty => {
-                // TODO
+                result = None;
             }
             Link::More(node) => {
-                // TODO
+                result = Some(node.elem);
+                self.head = node.next;
             }
         };
-        unimplemented!()
+        result
     }
 }
