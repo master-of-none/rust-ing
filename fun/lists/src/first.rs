@@ -21,11 +21,6 @@ impl List {
     }
 
     pub fn push(&mut self, elem: i32) {
-        // let new_node = Node {
-        //     elem: elem,
-        //     next: self.head,
-        // };
-
         let new_node = Box::new(Node {
             elem: elem,
             next: mem::replace(&mut self.head, Link::Empty),
@@ -35,7 +30,7 @@ impl List {
 
     pub fn pop(&mut self) -> Option<i32> {
         let result;
-        match &self.head {
+        match mem::replace(&mut self.head, Link::Empty) {
             Link::Empty => {
                 result = None;
             }
