@@ -1,4 +1,5 @@
 // First Linked List
+use std::mem;
 
 pub struct List {
     head: Link,
@@ -27,7 +28,7 @@ impl List {
 
         let new_node = Box::new(Node {
             elem: elem,
-            next: self.head,
+            next: mem::replace(&mut self.head, Link::Empty),
         });
         self.head = Link::More(new_node);
     }
