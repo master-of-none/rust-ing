@@ -20,9 +20,15 @@ impl List {
     }
 
     pub fn push(&mut self, elem: i32) {
-        let new_node = Node {
+        // let new_node = Node {
+        //     elem: elem,
+        //     next: self.head,
+        // };
+
+        let new_node = Box::new(Node {
             elem: elem,
             next: self.head,
-        };
+        });
+        self.head = Link::More(new_node);
     }
 }
