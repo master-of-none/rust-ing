@@ -53,16 +53,16 @@ mod test {
         list.push(2);
         list.push(3);
 
-        aseert_eq!(list.pop(), Some(3));
+        assert_eq!(list.pop(), Some(3));
         assert_eq!(list.pop(), Some(2));
 
         list.push(4);
         list.push(5);
 
-        aseert_eq!(list.pop(), Some(5));
+        assert_eq!(list.pop(), Some(5));
         assert_eq!(list.pop(), Some(4));
 
-        aseert_eq!(list.pop(), Some(1));
+        assert_eq!(list.pop(), Some(1));
         assert_eq!(list.pop(), None);
     }
 }
