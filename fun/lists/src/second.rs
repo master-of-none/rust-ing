@@ -72,25 +72,25 @@ impl<T> Iterator for IntoIter<T> {
     }
 }
 
-pub struct Iter<T> {
-    next: Option<&Node<T>>,
+pub struct Iter<'a, T> {
+    next: Option<&'a Node<T>>,
 }
 
-impl<T> List<T> {
-    pub fn iter(&self) -> Iter<T> {
+impl<'a, T> List<T> {
+    pub fn iter(&'a self) -> Iter<'a, T> {
         Iter {
-            next: self.head.map(|node| &node),
+            next: self.head.map(|node| &'a node),
         }
     }
 }
 
-impl<T> Iterator for Iter<T> {
-    type Item = &T;
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.next.map(|node| {
-            self.next = node.next.map(|node| &node);
-            &node.elem
+            self.next = node.next.map(|node| &'a node);
+            &'a node.elem
         })
     }
 }
