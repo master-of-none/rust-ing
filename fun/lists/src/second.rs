@@ -26,7 +26,7 @@ impl List {
     }
 
     pub fn pop(&mut self) -> Option<i32> {
-        match mem::replace(&mut self.head, None) {
+        match self.head.take() {
             None => None,
 
             Some(node) => {
