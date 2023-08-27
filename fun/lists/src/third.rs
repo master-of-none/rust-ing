@@ -37,3 +37,30 @@ impl<T> List<T> {
         self.head.as_ref().map(|node| &node.elem)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::List;
+
+    #[test]
+    fn basic_test() {
+        let list = List::new();
+        assert_eq!(list.head(), None);
+
+        let list = list.prepend(1).prepend(2).prepend(3);
+        assert_eq!(list.head(), Some(&3));
+
+        let list = list.tail();
+        assert_eq!(list.head(), Some(&2));
+
+        let list = list.tail();
+        assert_eq!(list.head(), Some(&1));
+
+        let list = list.tail();
+        assert_eq!(list.head(), None);
+
+        // Double checking for empty tail
+        let list = list.tail();
+        assert_eq!(list.head(), None);
+    }
+}
