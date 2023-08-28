@@ -58,7 +58,7 @@ impl<T> List<T> {
                     self.tail.take();
                 }
             }
-            old_head.into_inner().elem
+            Rc::try_unwrap(old_head).ok().unwrap().into_inner().elem
         })
     }
 }
