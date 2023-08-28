@@ -46,6 +46,21 @@ impl<T> List<T> {
             }
         }
     }
+
+    pub fn pop_front(&mut self) {
+        self.head.take().map(|old_head| {
+            match old.head.borrow_mut().next.take() {
+                Some(new_head) => {
+                    new_head.borrow_mut().prev.take();
+                    self.head = Some(new_head);
+                }
+                None => {
+                    self.tail.take();
+                }
+            }
+            old_head.elem
+        })
+    }
 }
 
 impl<T> Default for List<T> {
