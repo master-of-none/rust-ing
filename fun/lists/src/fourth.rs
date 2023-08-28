@@ -47,7 +47,7 @@ impl<T> List<T> {
         }
     }
 
-    pub fn pop_front(&mut self) {
+    pub fn pop_front(&mut self) -> Option<T> {
         self.head.take().map(|old_head| {
             match old.head.borrow_mut().next.take() {
                 Some(new_head) => {
@@ -58,7 +58,7 @@ impl<T> List<T> {
                     self.tail.take();
                 }
             }
-            old_head.elem
+            old_head.borrow_mut().elem
         })
     }
 }
