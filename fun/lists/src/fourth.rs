@@ -68,3 +68,33 @@ impl<T> Default for List<T> {
         Self::new()
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::List;
+
+    #[test]
+    fn basic_test() {
+        let mut list = List::new();
+
+        // Empty List
+        assert_eq!(list.pop_front(), None);
+
+        // Add elements to list
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+
+        // Test Pop
+        assert_eq!(list.pop_front(), Some(3));
+        assert_eq!(list.pop_front(), Some(2));
+
+        list.push_front(4);
+        list.push_front(5);
+
+        assert_eq!(list.pop_front(), Some(5));
+        assert_eq!(list.pop_front(), Some(4));
+        assert_eq!(list.pop_front(), Some(1));
+        assert_eq!(list.pop_front(), None);
+    }
+}
