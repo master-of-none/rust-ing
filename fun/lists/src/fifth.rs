@@ -1,6 +1,6 @@
-pub struct List<'a, T> {
+pub struct List<T> {
     head: Link<T>,
-    tail: Option<&'a mut Node<T>>,
+    tail: *mut Node<T>,
 }
 
 type Link<T> = Option<Box<Node<T>>>;
@@ -10,7 +10,7 @@ struct Node<T> {
     next: Link<T>,
 }
 
-impl<'a, T> List<'a, T> {
+impl<T> List<T> {
     pub fn new() -> Self {
         List {
             head: None,
@@ -18,7 +18,7 @@ impl<'a, T> List<'a, T> {
         }
     }
 
-    pub fn push(&'a mut self, elem: T) {
+    pub fn push(&mut self, elem: T) {
         let new_tail = Box::new(Node { elem, next: None });
 
         let new_tail = match self.tail.take() {
@@ -34,7 +34,7 @@ impl<'a, T> List<'a, T> {
         self.tail = new_tail;
     }
 
-    pub fn pop(&'a mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<T> {
         self.head.take().map(|head| {
             let head = *head;
             self.head = head.next;
