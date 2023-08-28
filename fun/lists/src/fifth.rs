@@ -1,5 +1,3 @@
-use std::mem;
-
 pub struct List<'a, T> {
     head: Link<T>,
     tail: Option<&'a mut Node<T>>,
@@ -20,7 +18,7 @@ impl<'a, T> List<'a, T> {
         }
     }
 
-    pub fn push(&mut self, elem: T) {
+    pub fn push(&'a mut self, elem: T) {
         let new_tail = Box::new(Node { elem, next: None });
 
         let new_tail = match self.tail.take() {
