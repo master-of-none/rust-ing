@@ -33,4 +33,3 @@ fn main() {
         println!("{}, {}cm", name, length);
     }
 }
-
