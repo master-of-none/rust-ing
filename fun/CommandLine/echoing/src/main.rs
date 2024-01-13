@@ -20,5 +20,12 @@ fn main() {
         )
         .get_matches();
 
-    println!("{:#?}", matches)
+    let text: Vec<&str> = matches
+        .get_many("text")
+        .unwrap()
+        .map(String::as_str)
+        .collect();
+
+    let omit_newline = matches.get_flag("omit_newline");
+    print!("{}{}", text.join(" "), if omit_newline { "" } else { "\n" });
 }
