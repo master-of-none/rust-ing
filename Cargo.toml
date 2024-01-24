@@ -1,5 +1,5 @@
 [workspace]
-members = [ "fun/CommandLine/catfish", "fun/CommandLine/echoing",
-    "fun/lists",,
+members = [ "embeddedRust/*",
+    "fun/lists",
 ]
 resolver = "1"
