@@ -39,7 +39,13 @@ fn init() -> ! {
         rprintln!();
     }
     loop {
+        display.show(&mut timer, life_board, 1000);
+        life(&mut life_board);
+        if done(&life_board) {
+            break;
+        }
         if let Ok(true) = board.buttons.button_a.is_low() {
+            generate_random_board(&mut life_board);
             display.show(&mut timer, life_board, 1000);
             // life(&mut life_board);
             // if done(&life_board) {
