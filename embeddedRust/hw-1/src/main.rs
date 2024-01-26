@@ -41,10 +41,16 @@ fn init() -> ! {
     loop {
         if let Ok(true) = board.buttons.button_a.is_low() {
             display.show(&mut timer, life_board, 1000);
-            life(&mut life_board);
-            if done(&life_board) {
-                break;
-            }
+            // life(&mut life_board);
+            // if done(&life_board) {
+            //     break;
+            // }
+        }
+
+        if let Ok(true) = board.buttons.button_b.is_low() {
+            let mut complement_board = [[0; 5]; 5];
+            complement(&mut life_board, &mut complement_board);
+            display.show(&mut timer, complement_board, 1000)
         }
     }
     panic!("Done")
@@ -60,6 +66,18 @@ fn generate_random_board(life_board: &mut [[u8; 5]]) {
             let b: bool = rng.generate();
             // life_board[r][c] = rng.generate_range(0..2);
             life_board[r][c] = b as u8;
+        }
+    }
+}
+
+fn complement(life_board: &mut [[u8; 5]], complement_board: &mut [[u8; 5]]) {
+    for r in 0..5 {
+        for c in 0..5 {
+            if life_board[r][c] == 0 {
+                complement_board[r][c] = 1;
+            } else {
+                complement_board[r][c] = 0
+            }
         }
     }
 }
