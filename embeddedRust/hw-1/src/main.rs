@@ -2,6 +2,7 @@
 #![no_main]
 
 mod life;
+use embedded_hal::digital::v2::InputPin;
 use life::*;
 
 use nanorand::Rng;
@@ -38,10 +39,12 @@ fn init() -> ! {
         rprintln!();
     }
     loop {
-        display.show(&mut timer, life_board, 1000);
-        life(&mut life_board);
-        if done(&life_board) {
-            break;
+        if let Ok(true) = board.buttons.button_a.is_low() {
+            display.show(&mut timer, life_board, 1000);
+            life(&mut life_board);
+            if done(&life_board) {
+                break;
+            }
         }
     }
     panic!("Done")
