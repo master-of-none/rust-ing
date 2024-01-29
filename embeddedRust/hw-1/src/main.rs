@@ -30,43 +30,48 @@ fn init() -> ! {
     //     [0, 0, 0, 0, 0],
     // ];
     let mut life_board = [[0; 5]; 5];
-    generate_random_board(&mut life_board);
+    let mut seeds = 9..; // Testing
+    life_board = generate_random_board(&mut life_board, seeds.next().unwrap());
+    rprintln!("Initial Board");
+    print_board(&life_board);
 
-    for r in 0..5 {
-        for c in 0..5 {
-            rprint!("{}", life_board[r][c]);
-        }
-        rprintln!();
-    }
     loop {
-        display.show(&mut timer, life_board, 1000);
-        life(&mut life_board);
-        if done(&life_board) {
-            break;
-        }
         if let Ok(true) = board.buttons.button_a.is_low() {
-            generate_random_board(&mut life_board);
+            let seed = seeds.next().unwrap();
+            rprintln!("{}", seed);
+            life_board = generate_random_board(&mut life_board, seed);
             display.show(&mut timer, life_board, 1000);
-            // life(&mut life_board);
-            // if done(&life_board) {
+            rprintln!("Pressed 'A' board continues");
+            // print_board(&another_board);
+            // life(&mut another_board);
+            // if done(&another_board) {
             //     break;
             // }
-        }
-
-        if let Ok(true) = board.buttons.button_b.is_low() {
+        } else if let Ok(true) = board.buttons.button_b.is_low() {
             let mut complement_board = [[0; 5]; 5];
             complement(&mut life_board, &mut complement_board);
-            display.show(&mut timer, complement_board, 1000)
+            rprintln!("Pressed 'B' board continues");
+            print_board(&complement_board);
+            display.show(&mut timer, complement_board, 1000);
+        } else {
+            display.show(&mut timer, life_board, 1000);
+            rprintln!("GamePlay");
+            print_board(&life_board);
+            life(&mut life_board);
+            if done(&life_board) {
+                break;
+            }
         }
     }
+
     panic!("Done")
 }
 
-fn generate_random_board(life_board: &mut [[u8; 5]]) {
+fn generate_random_board(life_board: &mut [[u8; 5]; 5], seed: u128) -> [[u8; 5]; 5] {
     // let current_time = Duration::from_secs(2);
     // let seed = current_time.as_secs();
     // let mut rng = nanorand::Pcg64::new_seed(seed.into());
-    let mut rng = nanorand::Pcg64::new_seed(10);
+    let mut rng = nanorand::Pcg64::new_seed(seed);
     for r in 0..5 {
         for c in 0..5 {
             let b: bool = rng.generate();
@@ -74,6 +79,7 @@ fn generate_random_board(life_board: &mut [[u8; 5]]) {
             life_board[r][c] = b as u8;
         }
     }
+    *life_board
 }
 
 fn complement(life_board: &mut [[u8; 5]], complement_board: &mut [[u8; 5]]) {
@@ -87,3 +93,16 @@ fn complement(life_board: &mut [[u8; 5]], complement_board: &mut [[u8; 5]]) {
         }
     }
 }
+
+fn print_board(board_print: &[[u8; 5]]) {
+    for r in 0..5 {
+        for c in 0..5 {
+            rprint!("{}", board_print[r][c]);
+        }
+        rprintln!();
+    }
+    rprintln!();
+}
+
+// Thing to do is take state of A, and set a flag there that when A is pressed flag becomes active and check state and then pass it to
+// when the button is not pressed to update. THINK!!!!
