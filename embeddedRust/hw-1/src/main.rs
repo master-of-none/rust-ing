@@ -2,7 +2,7 @@
 #![no_main]
 
 mod life;
-use embedded_hal::digital::v2::InputPin;
+use embedded_hal::{blocking::delay::DelayMs, digital::v2::InputPin};
 use life::*;
 
 use nanorand::Rng;
@@ -41,6 +41,7 @@ fn init() -> ! {
             rprintln!("{}", seed);
             life_board = generate_random_board(&mut life_board, seed);
             display.show(&mut timer, life_board, 1000);
+            timer.delay_ms(100u16);
             rprintln!("Pressed 'A' board continues");
             // print_board(&another_board);
             // life(&mut another_board);
@@ -53,18 +54,29 @@ fn init() -> ! {
             rprintln!("Pressed 'B' board continues");
             print_board(&complement_board);
             display.show(&mut timer, complement_board, 1000);
+            timer.delay_ms(5000u16);
         } else {
             display.show(&mut timer, life_board, 1000);
+            timer.delay_ms(100u16);
             rprintln!("GamePlay");
             print_board(&life_board);
             life(&mut life_board);
             if done(&life_board) {
-                break;
+                timer.delay_ms(5000u16);
+                if let Ok(true) = board.buttons.button_a.is_low() {
+                    continue;
+                } else if let Ok(true) = board.buttons.button_b.is_low() {
+                    continue;
+                } else {
+                    let seed = seeds.next().unwrap();
+                    rprintln!("{}", seed);
+                    life_board = generate_random_board(&mut life_board, seed);
+                }
             }
         }
     }
 
-    panic!("Done")
+    //panic!("Done")
 }
 
 fn generate_random_board(life_board: &mut [[u8; 5]; 5], seed: u128) -> [[u8; 5]; 5] {
