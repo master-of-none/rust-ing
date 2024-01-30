@@ -62,18 +62,21 @@ fn init() -> ! {
             print_board(&life_board);
             life(&mut life_board);
             if done(&life_board) {
-                timer.delay_ms(5000u16);
-                // if let Ok(true) = board.buttons.button_a.is_low() {
-                //     rprintln!("Board A continues after Game");
-                //     handle_button_a(&mut life_board, &mut display, &mut timer, &mut seeds);
-                // } else if let Ok(true) = board.buttons.button_b.is_low() {
-                //     rprintln!("Board B continues after Game");
-                //     handle_button_b(&mut life_board, &mut display, &mut timer);
-                // } else {
-                let seed = seeds.next().unwrap();
-                rprintln!("{}", seed);
-                life_board = generate_random_board(&mut life_board, seed);
-                //}
+                timer.delay_ms(3000u16);
+                if let Ok(true) = board.buttons.button_a.is_low() {
+                    rprintln!("Board A continues after Game");
+                    handle_button_a(&mut life_board, &mut display, &mut timer, &mut seeds);
+                    continue;
+                } else if let Ok(true) = board.buttons.button_b.is_low() {
+                    rprintln!("Board B continues after Game");
+                    handle_button_b(&mut life_board, &mut display, &mut timer);
+                    continue;
+                } else {
+                    //rprintln!("Dont go here");
+                    let seed = seeds.next().unwrap();
+                    rprintln!("{}", seed);
+                    life_board = generate_random_board(&mut life_board, seed);
+                }
             }
         }
     }
