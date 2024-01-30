@@ -1,5 +1,0 @@
-[workspace]
-members = [ "embeddedRust/*",
-    "fun/lists",
-]
-resolver = "1"
