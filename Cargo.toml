@@ -1,5 +1,5 @@
 [workspace]
 members = [ "fun/CommandLine/catfish", "fun/CommandLine/echoing",
     "fun/lists","fun/exercism/rust/*","embeddedRust/*"
-, "leetcode"]
+, "leetcode", "fun/book/web-server"]
 resolver = "1"
