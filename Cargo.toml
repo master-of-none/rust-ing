@@ -1,3 +1,0 @@
-[workspace]
-members = [ "fun/CommandLine/catfish", "fun/CommandLine/echoing","fun/exercism/rust/*", "leetcode", "zero2prod"]
-resolver = "1"
