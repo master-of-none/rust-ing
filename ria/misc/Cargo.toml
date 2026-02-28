@@ -1,0 +1,10 @@
+[package]
+name = "misc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[[bin]]
+name = "vector"
+path = "src/bin/vector.rs"
